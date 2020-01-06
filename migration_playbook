@@ -1,0 +1,9 @@
+load database
+     from mssql://sa:VerySecure123@192.168.10.3/connie
+     into postgresql://connie:connie@192.168.10.3/connie
+
+set work_mem to '16MB', maintenance_work_mem to '512MB'
+
+cast type datetime2 to timestamptz
+
+before load do $$ drop schema if exists dbo cascade; $$;

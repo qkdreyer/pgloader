@@ -5,11 +5,13 @@ FROM debian:stable-slim as builder
         bzip2 \
         ca-certificates \
         curl \
+        libcurl4-openssl-dev \
         freetds-dev \
         gawk \
         git \
         libsqlite3-dev \
         libssl1.1 \
+        libssl-dev \
         libzip-dev \
         make \
         openssl \
@@ -33,6 +35,9 @@ FROM debian:stable-slim
   RUN apt-get update \
       && apt-get install -y --no-install-recommends \
         curl \
+        libcurl4 \
+        openssl \
+        libssl1.1 \
         freetds-dev \
         gawk \
         libsqlite3-dev \

@@ -1,0 +1,2 @@
+FROM pgloader:dev
+ADD migration_playbook /usr/local/bin

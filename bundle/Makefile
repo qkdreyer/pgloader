@@ -8,9 +8,9 @@ VERSION    = %VERSION%
 ifeq ($(OS),Windows_NT)
 EXE           = .exe
 COMPRESS_CORE = no
-DYNSIZE       = 1024		# support for windows 32 bits
+DYNSIZE       = 8192		# support for windows 32 bits
 else
-DYNSIZE       = 4096
+DYNSIZE       = 8192
 EXE =
 endif
 

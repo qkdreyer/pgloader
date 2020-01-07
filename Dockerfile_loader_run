@@ -1,2 +1,3 @@
-FROM pgloader:dev
+ARG VERSION=1
+FROM pgloaderdev:$VERSION
 ADD migration_playbook /usr/local/bin

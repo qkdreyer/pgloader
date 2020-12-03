@@ -1,21 +1,6 @@
---
--- Main tables
---
 load database
-   from mssql://{{mssql_user}}:{{mssql_pass}}@{{mssql_server_addr}}/{{source_db}}
-   into postgresql://{{psql_user}}:{{psql_pass}}@{{psql_server_addr}}/{{dest_db}}
--- All below not required as present
---with
---   drop schema, preserve index names, batch rows = 5000, batch concurrency = 2
---cast
---   type bigint   when (= 20 precision)                   to bigint             drop typemod,
---   type int      when (= 11 precision)                   to integer            drop typemod,
---   type decimal  when (and (= 18 precision) (= 6 scale)) to "double precision" drop typemod,
---   type datetime2 to timestamptz
---   type datetime                                         to timestamp          drop default using zero-dates-to-null
---excluding table names matching ~/AO_/, ~/EVENTS/, ~/SECRETS/, ~/SNAPSHOTS/, ~/PLUGINDATA/, ~/scheduler_clustered_jobs/
--- we rename the dbo to public tables
-alter schema 'dbo' rename to 'public'
---after load do
---$$ alter sequence journalentry_entry_id_seq rename to seq_journal_entry_id; $$
-;
+     from mssql://{{mssql_user}}:{{mssql_pass}}@{{mssql_server_addr}}/{{source_db}}
+     into postgresql://{{psql_user}}:{{psql_pass}}@{{psql_server_addr}}/{{dest_db}}
+cast type datetime2 to timestamptz to timestamptz drop default,
+     type datetime to timestamptz to timestamptz drop default
+ALTER SCHEMA 'dbo' RENAME TO 'public';

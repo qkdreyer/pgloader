@@ -54,9 +54,8 @@ FROM debian:stable-slim
   ENV PSQL_USER=
   ENV PSQL_PASS=
   ENV PSQL_SERVER_ADDR=
-  ENV PSQL_PORT=5432
   ENV DEST_DB=
 
-  CMD /usr/local/bin/pgloader -v --debug --on-error-stop /usr/local/bin/migration_playbook
+  CMD /usr/local/bin/pgloader --on-error-stop /usr/local/bin/migration_playbook
 
   LABEL maintainer="Dimitri Fontaine <dim@tapoueh.org>"

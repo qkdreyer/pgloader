@@ -103,7 +103,7 @@ MySQL Database Migration Options: WITH
 --------------------------------------
 
 When loading from a `MySQL` database, the following options are supported,
-and the default *WITH* clause is: *no truncate*, *create schema*, *create
+and the default *WITH* clause is: *no truncate*, *create
 tables*, *include drop*, *create indexes*, *reset sequences*, *foreign
 keys*, *downcase identifiers*, *uniquify index names*.
 
@@ -559,13 +559,19 @@ Numbers::
   type int with extra auto_increment to serial when (< precision 10)
   type int with extra auto_increment to bigserial when (<= 10 precision)
   type int to int       when  (< precision 10)
-  type int to bigint    when  (>= 10 precision)
+  type int to bigint    when  (<= 10 precision)
   type tinyint   with extra auto_increment to serial
   type smallint  with extra auto_increment to serial
   type mediumint with extra auto_increment to serial
   type bigint    with extra auto_increment to bigserial
 
   type tinyint to boolean when (= 1 precision) using tinyint-to-boolean
+
+  type bit when (= 1 precision) to boolean drop typemod using bits-to-boolean
+  type bit to bit drop typemod using bits-to-hex-bitstring
+
+  type bigint when signed to bigint drop typemod
+  type bigint when (< 19 precision) to numeric drop typemod
 
   type tinyint when unsigned to smallint   drop typemod
   type smallint when unsigned to integer  drop typemod
@@ -595,12 +601,12 @@ Texts::
 
 Binary::
 
-  type binary     to bytea
-  type varbinary  to bytea
-  type tinyblob   to bytea
-  type blob       to bytea
-  type mediumblob to bytea
-  type longblob   to bytea
+  type binary     to bytea using byte-vecotr-to-bytea
+  type varbinary  to bytea using byte-vecotr-to-bytea
+  type tinyblob   to bytea using byte-vecotr-to-bytea
+  type blob       to bytea using byte-vecotr-to-bytea
+  type mediumblob to bytea using byte-vecotr-to-bytea
+  type longblob   to bytea using byte-vecotr-to-bytea
 
 Date::
   
@@ -638,7 +644,9 @@ Date::
 
 Geometric::
 
-  type point to point using pgloader.transforms::convert-mysql-point
+  type geometry   to point using convert-mysql-point
+  type point      to point using convert-mysql-point
+  type linestring to path using convert-mysql-linestring
 
 Enum types are declared inline in MySQL and separately with a `CREATE TYPE`
 command in PostgreSQL, so each column of Enum Type is converted to a type

@@ -147,7 +147,7 @@ Schema only, Data only
     
 Repeatable (DROP+CREATE)
     By default, pgloader issues DROP statements in the target PostgreSQL
-    database before issing any CREATE statement, so that you can repeat the
+    database before issuing any CREATE statement, so that you can repeat the
     migration as many times as necessary until migration specifications and
     rules are bug free.
 
@@ -156,10 +156,11 @@ Repeatable (DROP+CREATE)
     `Continuous Migration <https://pgloader.io/blog/continuous-migration/>`_
     methodology for more details about the approach.
 
-On error stop / On error resume next The default behavior of pgloader when
-    migrating from a database is ``on error stop``. The idea is to let the
-    user fix either the migration specifications or the source data, and run
-    the process again, until it works.
+On error stop / On error resume next
+    The default behavior of pgloader when migrating from a database is 
+    ``on error stop``. The idea is to let the user fix either the migration 
+    specifications or the source data, and run the process again, until 
+    it works.
 
     In some cases the source data is so damaged as to be impossible to
     migrate in full, and it might be necessary to then resort to the ``on

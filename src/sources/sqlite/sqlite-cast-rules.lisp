@@ -23,6 +23,9 @@
     (:source (:type "integer") :target (:type "bigint")
              :using pgloader.transforms::integer-to-string)
 
+    (:source (:type "long") :target (:type "bigint")
+             :using pgloader.transforms::integer-to-string)
+
     (:source (:type "float") :target (:type "float")
              :using pgloader.transforms::float-to-string)
 
@@ -30,6 +33,9 @@
              :using pgloader.transforms::float-to-string)
 
     (:source (:type "double") :target (:type "double precision")
+             :using pgloader.transforms::float-to-string)
+
+    (:source (:type "double precision") :target (:type "double precision")
              :using pgloader.transforms::float-to-string)
 
     (:source (:type "numeric") :target (:type "numeric" :drop-typemod nil)
@@ -99,6 +105,12 @@
                       ;; address CURRENT_TIMESTAMP(6) and other spellings
                       (or (uiop:string-prefix-p "CURRENT_TIMESTAMP" default)
                           (string= "CURRENT TIMESTAMP" default)))
+                 :current-timestamp)
+
+                ((and (stringp default)
+                      ;; we don't care about spaces in that expression
+                      (string-equal "datetime('now','localtime')"
+                                    (remove #\Space default)))
                  :current-timestamp)
 
                 ((and (stringp default) (string-equal "current_date" default))

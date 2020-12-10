@@ -52,6 +52,7 @@
            #:extension
            #:sqltype
            #:table
+           #:matview
            #:column
            #:index
            #:fkey
@@ -66,7 +67,7 @@
            #:make-schema
            #:make-table
            #:create-table
-           #:make-view
+           #:make-matview
            #:make-sqltype
            #:make-column
            #:make-index
@@ -95,12 +96,18 @@
            #:table-comment
            #:table-storage-parameter-list
            #:table-tablespace
+           #:table-row-count-estimate
            #:table-field-list
            #:table-column-list
            #:table-index-list
            #:table-fkey-list
            #:table-trigger-list
            #:table-citus-rule
+
+           #:matview-name
+           #:matview-source-name
+           #:matview-schema
+           #:matview-definition
 
            #:extension-name
            #:extension-schema
@@ -560,6 +567,17 @@
            #:instanciate-table-copy-object
            #:concurrency-support
 
+           #:filter-list-to-where-clause
+           #:fetch-columns
+           #:fetch-indexes
+           #:fetch-foreign-keys
+           #:fetch-comments
+           #:get-column-sql-expression
+           #:get-column-list
+           #:format-matview-name
+           #:create-matviews
+           #:drop-matviews
+
            ;; database cast machinery
            #:*default-cast-rules*
            #:*cast-rules*
@@ -704,6 +722,7 @@
 		#:create-tables
                 #:format-vector-row)
   (:export #:dbf-connection
+           #:*db3-default-cast-rules*
            #:copy-db3
 	   #:map-rows
 	   #:copy-to
@@ -850,7 +869,8 @@
                 #:*sqlite-default-cast-rules*)
   (:import-from #:pgloader.source.db3
                 #:copy-db3
-                #:dbf-connection)
+                #:dbf-connection
+                #:*db3-default-cast-rules*)
   (:import-from #:pgloader.source.ixf
                 #:copy-ixf
                 #:ixf-connection)
@@ -894,7 +914,8 @@
            #:lisp-code-for-loading-from-dbf
            #:lisp-code-for-loading-from-ixf
            #:lisp-code-for-loading-from-sqlite
-           #:lisp-code-for-loading-from-mssql))
+           #:lisp-code-for-loading-from-mssql
+           #:lisp-code-for-loading-from-pgsql))
 
 
 ;;

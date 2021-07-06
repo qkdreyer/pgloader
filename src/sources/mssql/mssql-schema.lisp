@@ -7,7 +7,10 @@
 (defclass copy-mssql (db-copy)
   ((encoding :accessor encoding         ; allows forcing encoding
              :initarg :encoding
-             :initform nil))
+             :initform nil)
+   (range-list :accessor range-list
+               :initarg :range-list
+               :initform nil))
   (:documentation "pgloader MS SQL Data Source"))
 
 ;;;

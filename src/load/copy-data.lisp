@@ -63,6 +63,7 @@
                         (on-error-stop *on-error-stop*)
                         disable-triggers)
   "Copy data from COPY source into PostgreSQL."
+  (log-message :debug "@@@ copy-from")
   (let* ((table-name   (format-table-name (target copy)))
          (lp:*kernel*  (or kernel (make-kernel worker-count)))
          (channel      (or channel (lp:make-channel)))

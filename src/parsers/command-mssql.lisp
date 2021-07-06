@@ -22,6 +22,9 @@
                           option-batch-size
                           option-prefetch-rows
                           option-max-parallel-create-index
+                          option-single-reader
+                          option-multiple-readers
+                          option-rows-per-range
                           option-reindex
                           option-truncate
                           option-disable-triggers
